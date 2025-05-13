@@ -7,7 +7,17 @@ function App() {
   const [responseMessage, setResponseMessage] = useState("Me pergunte algo!");
   const { register, handleSubmit } = useForm();
 
-  const handleFormSubmit = async ({ prompt }) => {};
+  const handleFormSubmit = async ({ prompt }) => {
+    try {
+      const { data } = await axios.post("http://localhost:3000/conversation", {
+        message: prompt,
+      });
+
+      setResponseMessage(data);
+    } catch (error) {
+      setResponseMessage("Ocorreu um erro. Tente novamente.");
+    }
+  };
 
   return (
     <section className="section-settings">
